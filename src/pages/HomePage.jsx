@@ -1,18 +1,17 @@
-import { getProduct } from "../services/api";
 import ProductCard from "../components/ProductCard";
-import React, { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
+import { PRODUCTS_URL } from "../services/api";
 
 export default function HomePage() {
-  const [data, setData] = useState([]);
+  const { data, loading, error } = useFetch(PRODUCTS_URL);
 
-  useEffect(() => {
-    async function fetchData() {
-      const result = await getProduct();
+  if (loading) {
+    return <p>loading</p>;
+  }
 
-      setData(result);
-    }
-    fetchData();
-  }, []);
+  if (error) {
+    return <p>Something went wrong</p>;
+  }
 
   return (
     <>
@@ -30,7 +29,7 @@ export default function HomePage() {
               id={id}
               title={title}
               price={price}
-              img={image}
+              image={image}
             />
           ))}
         </div>
