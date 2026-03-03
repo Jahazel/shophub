@@ -27,7 +27,7 @@ export default function ProductPage() {
         <p className="product-price">${price}</p>
         <p className="product-description">{description}</p>
         <p className="product-category">Category: {category}</p>
-        <button className="product-buy-bttn">Add to Cart</button>
+        <button className="product-buy-btn">Add to Cart</button>
       </div>
     </div>
   );

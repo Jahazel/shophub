@@ -162,7 +162,7 @@ body {
   letter-spacing: 0.5px;
 }
 
-.product-buy-bttn {
+.product-buy-btn {
   background-color: #2a7de1;
   color: white;
   border: none;
@@ -173,6 +173,44 @@ body {
   width: 100%;
 }
 
-.product-buy-bttn:hover {
+.product-buy-btn:hover {
+  background-color: #1a6cd0;
+  cursor: pointer;}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 90px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 700;
+  color: #2a7de1;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.cart-btn {
+  background-color: #2a7de1;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cart-btn:hover {
   background-color: #1a6cd0;
 }
