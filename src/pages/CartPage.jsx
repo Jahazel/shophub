@@ -1,3 +1,42 @@
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+
 export default function CartPage() {
-  return <h1>cart page </h1>;
+  const { cartItems } = useContext(CartContext);
+
+  return (
+    <div className="cart-page-container">
+      <h1>Checkout</h1>
+      <div className="cart-layout">
+        <div className="order-summary-container">
+          <h2>Order Summary</h2>
+          {cartItems.map(({ id, title, price, image, quantity }) => (
+            <div className="cart-item" key={id}>
+              <img src={image} alt={title} />
+              <div className="cart-item-info">
+                <p className="cart-item-title">{title}</p>
+                <p className="cart-item-price">${price}</p>
+              </div>
+              <div className="cart-item-actions">
+                <p className="cart-item-quantity">Qty: {quantity}</p>
+                <button className="remove-btn">Remove</button>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="total-container">
+          <h2>Order Total</h2>
+          <div className="total-row">
+            <p>Subtotal</p>
+            <p>$0.00</p>
+          </div>
+          <div className="total-row total-final">
+            <p>Total</p>
+            <p>$0.00</p>
+          </div>
+          <button className="place-order-btn">Place Order</button>
+        </div>
+      </div>
+    </div>
+  );
 }
