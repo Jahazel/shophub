@@ -2,11 +2,10 @@ import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
 
 export default function CartPage() {
-  const { cartItems } = useContext(CartContext);
-  const totalCount = cartItems.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0,
-  );
+  const { cartItems, increaseQuantity } = useContext(CartContext);
+  const totalCount = cartItems
+    .reduce((total, item) => total + item.price * item.quantity, 0)
+    .toFixed(2);
 
   return (
     <div className="cart-page-container">
@@ -22,7 +21,18 @@ export default function CartPage() {
                 <p className="cart-item-price">${price}</p>
               </div>
               <div className="cart-item-actions">
-                <p className="cart-item-quantity">Qty: {quantity}</p>
+                <div className="quantity-controls">
+                  <button className="qty-btn">-</button>
+                  <span className="qty-number">{quantity}</span>
+                  <button
+                    className="qty-btn"
+                    onClick={() => {
+                      increaseQuantity(id);
+                    }}
+                  >
+                    +
+                  </button>
+                </div>
                 <button className="remove-btn">Remove</button>
               </div>
             </div>

@@ -23,8 +23,18 @@ export function CartProvider({ children }) {
     }
   }
 
+  function increaseQuantity(productId) {
+    const updatedCart = cartItems.map((item) => {
+      if (item.id === productId) {
+        return { ...item, quantity: item.quantity + 1 };
+      }
+    });
+
+    setCartItems(updatedCart);
+  }
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity }}>
       {children}
     </CartContext.Provider>
   );
