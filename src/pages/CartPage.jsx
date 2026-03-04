@@ -3,6 +3,10 @@ import { CartContext } from "../context/CartContext";
 
 export default function CartPage() {
   const { cartItems } = useContext(CartContext);
+  const totalCount = cartItems.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0,
+  );
 
   return (
     <div className="cart-page-container">
@@ -28,11 +32,11 @@ export default function CartPage() {
           <h2>Order Total</h2>
           <div className="total-row">
             <p>Subtotal</p>
-            <p>$0.00</p>
+            <p>${totalCount}</p>
           </div>
           <div className="total-row total-final">
             <p>Total</p>
-            <p>$0.00</p>
+            <p>${totalCount}</p>
           </div>
           <button className="place-order-btn">Place Order</button>
         </div>
