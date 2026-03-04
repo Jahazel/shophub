@@ -6,9 +6,7 @@ export default function Navbar() {
       <Link to={`/`}>
         <h1 className="logo">ShopHub</h1>
       </Link>
-      <Link to="/cart" className="cart-btn">
-        Cart
-      </Link>
+      <Link to="/cart" className="cart-btn"></Link>
     </nav>
   );
 }

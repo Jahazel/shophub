@@ -1,10 +1,13 @@
 import useFetch from "../hooks/useFetch";
 import { PRODUCT_BY_ID_URL } from "../services/api";
 import { useParams } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 export default function ProductPage() {
   const { id } = useParams();
   const { data, loading, error } = useFetch(PRODUCT_BY_ID_URL(id));
+  const { addToCart } = useContext(CartContext);
 
   if (loading) {
     return <p>loading</p>;
@@ -27,7 +30,14 @@ export default function ProductPage() {
         <p className="product-price">${price}</p>
         <p className="product-description">{description}</p>
         <p className="product-category">Category: {category}</p>
-        <button className="product-buy-btn">Add to Cart</button>
+        <button
+          className="product-buy-btn"
+          onClick={() => {
+            addToCart(data);
+          }}
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   );
