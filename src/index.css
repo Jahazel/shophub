@@ -382,3 +382,37 @@ nav a {
   background-color: #1a6cd0;
   cursor: pointer;
 }
+
+.empty-cart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  gap: 16px;
+}
+
+.empty-cart h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.empty-cart p {
+  color: #777;
+  font-size: 16px;
+}
+
+.continue-shopping-btn {
+  background-color: #2a7de1;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.continue-shopping-btn:hover {
+  background-color: #1a6cd0;
+}
