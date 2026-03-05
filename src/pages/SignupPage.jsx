@@ -1,4 +1,7 @@
 import { useForm } from "react-hook-form";
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function SignupPage() {
   const {
@@ -7,8 +10,18 @@ export default function SignupPage() {
     formState: { errors },
   } = useForm({ mode: "onTouched" });
 
+  const { signUp } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+
   const onSubmit = (data) => {
-    console.log("Form Submitted Successfully", data);
+    const result = signUp(data.name, data.email, data.password);
+
+    if (result.success) {
+      navigate("/");
+    } else {
+      setError(result.message);
+    }
   };
 
   return (
@@ -71,13 +84,15 @@ export default function SignupPage() {
             )}
           </div>
 
+          {error && <p className="error-msg">{error}</p>}
+
           <button type="submit" className="auth-btn">
             Create Account
           </button>
         </form>
 
         <p className="auth-switch">
-          Already have an account? <a href="/login">Log in</a>
+          Already have an account? <Link to="/login">Log in</Link>
         </p>
       </div>
     </div>

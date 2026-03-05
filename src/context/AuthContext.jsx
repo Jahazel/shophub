@@ -13,5 +13,29 @@ export function AuthProvider({ children }) {
   });
   const [currentUser, setCurrentUser] = useState(null);
 
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>;
+  function signUp(name, email, password) {
+    const existingUser = users.find((user) => user?.email === email);
+
+    if (existingUser) {
+      return { success: false, message: "Email already in use" };
+    }
+
+    const updatedUsers = [
+      ...users,
+      {
+        name: name,
+        email: email,
+        password: password,
+      },
+    ];
+
+    setUsers(updatedUsers);
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+    return { success: true };
+  }
+
+  return (
+    <AuthContext.Provider value={{ signUp }}>{children}</AuthContext.Provider>
+  );
 }
