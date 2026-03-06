@@ -35,7 +35,24 @@ export function AuthProvider({ children }) {
     return { success: true };
   }
 
+  function login(email, password) {
+    const existingUser = users.find((user) => user?.email === email);
+
+    if (!existingUser) {
+      return { success: false, message: "" };
+    }
+
+    if (existingUser.password !== password) {
+      return { success: false, message: "" };
+    }
+
+    setCurrentUser(existingUser);
+    return { success: true };
+  }
+
   return (
-    <AuthContext.Provider value={{ signUp }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ signUp, login }}>
+      {children}
+    </AuthContext.Provider>
   );
 }
