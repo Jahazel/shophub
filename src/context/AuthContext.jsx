@@ -11,7 +11,14 @@ export function AuthProvider({ children }) {
       return [];
     }
   });
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => {
+    try {
+      const stored = localStorage.getItem("currentUser");
+      return stored ? JSON.parse(stored) : null;
+    } catch {
+      return null;
+    }
+  });
 
   function signUp(name, email, password) {
     const existingUser = users.find((user) => user?.email === email);
@@ -47,11 +54,18 @@ export function AuthProvider({ children }) {
     }
 
     setCurrentUser(existingUser);
+    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+
     return { success: true };
   }
 
+  function logout() {
+    setCurrentUser(null);
+    localStorage.removeItem("currentUser");
+  }
+
   return (
-    <AuthContext.Provider value={{ signUp, login }}>
+    <AuthContext.Provider value={{ signUp, login, logout, currentUser }}>
       {children}
     </AuthContext.Provider>
   );
