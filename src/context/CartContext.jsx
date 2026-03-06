@@ -70,6 +70,10 @@ export function CartProvider({ children }) {
     setCartItems(cartItems.filter((item) => item.id !== productId));
   }
 
+  function clearCart() {
+    setCartItems([]);
+  }
+
   return (
     <CartContext.Provider
       value={{
@@ -78,6 +82,7 @@ export function CartProvider({ children }) {
         increaseQuantity,
         decreaseQuantity,
         removeFromCart,
+        clearCart,
       }}
     >
       {children}
