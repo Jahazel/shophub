@@ -1,13 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { Link } from "react-router-dom";
+import { createPortal } from "react-dom";
 
 export default function CartPage() {
-  const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } =
-    useContext(CartContext);
+  const {
+    cartItems,
+    increaseQuantity,
+    decreaseQuantity,
+    removeFromCart,
+    clearCart,
+  } = useContext(CartContext);
   const totalCount = cartItems
     .reduce((total, item) => total + item.price * item.quantity, 0)
     .toFixed(2);
+  const [showModal, setShowModal] = useState(false);
+
+  function handleOrder() {
+    setShowModal(true);
+  }
 
   if (cartItems.length === 0) {
     return (
@@ -22,6 +33,23 @@ export default function CartPage() {
   } else {
     return (
       <div className="cart-page-container">
+        {showModal &&
+          createPortal(
+            <div className="modal-overlay">
+              <div className="modal">
+                <h1>Order Confirmed!</h1>
+                <p>Thanks for shopping with ShopHub.</p>
+                <Link
+                  to="/"
+                  className="continue-shopping-btn"
+                  onClick={clearCart}
+                >
+                  Continue Shopping
+                </Link>
+              </div>
+            </div>,
+            document.body,
+          )}
         <h1>Checkout</h1>
         <div className="cart-layout">
           <div className="order-summary-container">
@@ -75,7 +103,9 @@ export default function CartPage() {
               <p>Total</p>
               <p>${totalCount}</p>
             </div>
-            <button className="place-order-btn">Place Order</button>
+            <button className="place-order-btn" onClick={handleOrder}>
+              Place Order
+            </button>
           </div>
         </div>
       </div>
