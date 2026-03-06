@@ -46,15 +46,18 @@ export function AuthProvider({ children }) {
     const existingUser = users.find((user) => user?.email === email);
 
     if (!existingUser) {
-      return { success: false, message: "" };
+      return { success: false, message: "No account found with that email." };
     }
 
     if (existingUser.password !== password) {
-      return { success: false, message: "" };
+      return {
+        success: false,
+        message: "Incorrect password. Please try again.",
+      };
     }
 
     setCurrentUser(existingUser);
-    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+    localStorage.setItem("currentUser", JSON.stringify(existingUser));
 
     return { success: true };
   }
